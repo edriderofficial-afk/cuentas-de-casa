@@ -4,17 +4,16 @@ Web para llevar entre dos los ingresos, gastos, ahorro y deudas de casa. Es un s
 
 ## Qué hace
 
-- **Resumen**: lo que os queda libre, la tasa de ahorro, la rueda de gasto por grupo con el presupuesto de cada uno, la regla 50/30/20, quién debe a quién en los gastos comunes y la evolución del año.
-- **Movimientos**: apuntar ingresos, gastos, ahorro y traspasos entre cuentas, con buscador y filtros.
-- **Plan**: presupuesto mensual por grupo, recibos fijos (se marcan solos), deudas con estrategia avalancha e intereses ahorrados, y metas de ahorro.
-- **Cuentas**: saldo de cada cuenta y patrimonio neto.
-- **Ajustes**: nombres, forma de repartir (a medias, porcentaje fijo o según ingresos), categorías y copias de seguridad.
+- **Inicio**: lo que os queda libre este mes, en qué se va el dinero (rueda de gasto) y quién debe a quién. «Más detalle» muestra la regla 50/30/20 y el año mes a mes.
+- **Movimientos**: todo lo apuntado, con filtros y buscador. El botón **+** apunta un gasto, ingreso o ahorro en dos toques.
+- **Objetivos**: topes de presupuesto, recibos del mes, metas de ahorro, deudas y patrimonio.
+- **Ajustes**: nombres, cómo repartís los gastos, compartir con la pareja, cuentas, categorías y exportar.
 
 ## Dónde se guardan los datos
 
 En el navegador de cada móvil. **No se suben a GitHub ni a ningún otro sitio**: el repositorio solo contiene la página vacía.
 
-Para llevarlo entre los dos: en Ajustes, uno pulsa «Descargar copia» y se la manda al otro, que la importa con «Combinar con lo mío». Se juntan los movimientos de los dos sin duplicar nada.
+Para llevarlo entre los dos: en Ajustes › Compartir, uno pulsa «Enviar copia» y se la manda al otro, que la importa con «Combinar con lo mío». Se juntan los movimientos de los dos sin duplicar nada.
 
 Haced una copia de vez en cuando: si se borran los datos del navegador, se pierde lo que no esté en una copia.
 

@@ -1,5 +1,5 @@
 // Copia offline de la app. Los datos van en el navegador, no aquí.
-const CACHE = "cuentas-casa-v2";
+const CACHE = "cuentas-casa-v3";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {
