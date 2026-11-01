@@ -261,6 +261,11 @@ const D=()=>DEMO||S;
 function save(){if(DEMO)return;S.u=now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("No se ha podido guardar")}}
 
 const d0=new Date(); let view={y:d0.getFullYear(),m:d0.getMonth()+1}, txf={type:"",q:"",cat:""};
+function jumpToData(){const st=D();if(!st.tx.length)return;
+  const has=(y,m)=>st.tx.some(t=>+t.date.slice(0,4)===y&&+t.date.slice(5,7)===m);
+  if(view.m&&has(view.y,view.m))return;
+  const last=st.tx.reduce((a,t)=>t.date>a?t.date:a,"");if(last){view.y=+last.slice(0,4);view.m=+last.slice(5,7)}}
+jumpToData();
 
 /* ---------- cálculos ---------- */
 const catOf=n=>D().cats.find(c=>c.name===n);
@@ -543,7 +548,7 @@ document.addEventListener("click",e=>{
     case"addcat":{const n=$("#nc").value.trim();if(!n)return toast("Escribe el nombre");if(S.cats.some(c=>c.name===n))return toast("Ya existe");const[t,b]=$("#nct").value.split("|");S.cats.push({id:uid(),name:n,type:t,block:b,u:now()});save();render();toast("Añadida");break}
     case"share":shareCopy();break;
     case"copy":navigator.clipboard.writeText(JSON.stringify(S)).then(()=>toast("Copiada: pégala en WhatsApp")).catch(()=>{const t=$("#imp");t.value=JSON.stringify(S);t.select();toast("Selecciona y copia el texto")});break;
-    case"merge":{const txt=$("#imp").value.trim();if(!txt)return toast("Elige el archivo o pega la copia");try{const n0=S.tx.length;mergeIn(JSON.parse(txt));save();render();toast(`Combinado: ${S.tx.length-n0} movimientos nuevos`)}catch(x){toast(x.message.startsWith("Esa")?x.message:"Esa copia no es válida")}break}
+    case"merge":{const txt=$("#imp").value.trim();if(!txt)return toast("Elige el archivo o pega la copia");try{const n0=S.tx.length;mergeIn(JSON.parse(txt));save();view={y:d0.getFullYear(),m:d0.getMonth()+1};jumpToData();render();toast(`Combinado: ${S.tx.length-n0} movimientos nuevos`)}catch(x){toast(x.message.startsWith("Esa")?x.message:"Esa copia no es válida")}break}
     case"csv":download("cuentas-casa-"+today()+".csv",csv(),"text/csv");break;
     case"wipe":arm(()=>{S=fresh();save();render();toast("Todo borrado")});break;
   }
