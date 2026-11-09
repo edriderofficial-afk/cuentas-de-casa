@@ -1,26 +1,33 @@
-# Cuentas de casa
+# Cuenta mixta
 
-Web para llevar entre dos los ingresos, gastos, ahorro y deudas de casa. Es un solo archivo (`index.html`): no tiene servidor, cuentas de usuario ni base de datos.
+App para iPhone (y cualquier móvil) para llevar entre dos una **cuenta mixta proporcional**: cada uno tiene su cuenta, y a la cuenta común (Openbank) va solo lo de los gastos de casa, poniendo cada uno según lo que cobra ese mes.
+
+App: https://edriderofficial-afk.github.io/cuentas-de-casa/
 
 ## Qué hace
 
-- **Inicio**: lo que os queda libre este mes, en qué se va el dinero (rueda de gasto) y quién debe a quién. «Más detalle» muestra la regla 50/30/20 y el año mes a mes.
-- **Movimientos**: todo lo apuntado, con filtros y buscador. El botón **+** apunta un gasto, ingreso o ahorro en dos toques.
-- **Objetivos**: topes de presupuesto, recibos del mes, metas de ahorro, deudas y patrimonio.
-- **Ajustes**: nombres, cómo repartís los gastos, compartir con la pareja, cuentas, categorías y exportar.
+- **Mes**: pones los sueldos y los gastos de ese mes (luz, agua… cambian cada mes) y te dice cuánto transfiere cada uno a la cuenta común y cuánto le queda. Botón para copiar el importe y marcar la transferencia como hecha.
+- **Historial**: todos los meses guardados, gráfico de gastos y lo que lleva puesto cada uno en el año.
+- **Ajustes**: nombres, reparto (según sueldo o a medias), plantilla de gastos (fijos y variables), conexión entre los dos móviles y copias de seguridad.
+- Modo oscuro automático, se instala en la pantalla de inicio y funciona sin conexión.
 
 ## Dónde se guardan los datos
 
-En el navegador de cada móvil. **No se suben a GitHub ni a ningún otro sitio**: el repositorio solo contiene la página vacía.
+Este repositorio es público y **solo contiene la app, nunca vuestros datos**.
 
-Para llevarlo entre los dos: en Ajustes › Compartir, uno pulsa «Enviar copia» y se la manda al otro, que la importa con «Combinar con lo mío». Se juntan los movimientos de los dos sin duplicar nada.
+Los datos se guardan en el móvil y, si lo conectáis, en un archivo `cuentas.json` dentro de un **repositorio privado aparte** (`cuentas-de-casa-datos`). Los dos móviles leen y escriben ese archivo, así que veis lo mismo y queda guardado mes a mes (con historial de cambios de GitHub).
 
-Haced una copia de vez en cuando: si se borran los datos del navegador, se pierde lo que no esté en una copia.
+## Puesta en marcha (una vez)
 
-## Publicarla con GitHub Pages
+1. Crea el repositorio privado: github.com/new › nombre `cuentas-de-casa-datos` › **Private** › Create repository.
+2. Crea una clave: GitHub › Settings › Developer settings › Personal access tokens › **Fine-grained tokens** › Generate new token.
+   - Repository access: **Only select repositories** › `cuentas-de-casa-datos`.
+   - Permissions › Repository permissions › **Contents: Read and write**.
+   - Generate token y cópiala (empieza por `github_pat_`).
+3. En tu iPhone, abre la app en Safari › Compartir › **Añadir a pantalla de inicio**. Ábrela desde el icono.
+4. Ajustes › pega la clave › **Conectar**.
+5. Ajustes › **Copiar código para el otro móvil** y envíaselo a tu pareja por un chat privado. Ella instala la app igual (paso 3) y en Ajustes pega el código › **Conectar con código**.
 
-1. Sube `index.html` a la rama `main` de un repositorio.
-2. En el repositorio, ve a **Settings › Pages**, elige «Deploy from a branch», rama `main`, carpeta `/ (root)` y guarda.
-3. En un par de minutos estará en `https://TU-USUARIO.github.io/NOMBRE-DEL-REPO/`.
+Cuando la clave caduque, crea otra igual, pulsa «Desconectar este móvil» y vuelve a conectar (y pásale el código nuevo a tu pareja).
 
-En el móvil, ábrela y elige «Añadir a pantalla de inicio» para usarla como una app.
+La versión anterior de la app («Cuentas de casa») sigue en el historial de este repositorio.
