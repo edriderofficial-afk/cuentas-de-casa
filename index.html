@@ -148,7 +148,7 @@ nav.tabs svg{width:26px;height:26px}
 <body>
 <header class="top">
   <h1 id="title">Este mes</h1>
-  <button class="pill" id="sync" data-act="tab" data-tab="ajustes"><span class="dot" id="syncDot"></span><span id="syncTxt">Solo en este móvil</span></button>
+  <button class="pill" id="sync" data-act="tab" data-tab="ajustes"><span class="dot" id="syncDot"></span><span id="syncTxt">Solo en este dispositivo</span></button>
 </header>
 <main id="view"></main>
 <nav class="tabs">
@@ -231,7 +231,7 @@ function save(kind, k){
   const t = now();
   if(kind === "mes" && S.meses[k]) S.meses[k].u = t;
   if(kind === "ajustes") S.su = t;
-  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast("No se ha podido guardar en el móvil"); }
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast("No se ha podido guardar en este dispositivo"); }
   if(SY){ pendingPush = true; setSync("busy", "Guardando…"); clearTimeout(pushT); pushT = setTimeout(push, 1200); }
 }
 function merge(L, R){
@@ -272,7 +272,7 @@ async function pull(c){
 }
 async function sync(reason){
   if(!SY || syncing) { if(syncing) pendingPush = true; return; }
-  if(!navigator.onLine){ setSync("off", "Sin conexión · guardado en el móvil"); return; }
+  if(!navigator.onLine){ setSync("off", "Sin conexión · guardado aquí"); return; }
   syncing = true; setSync("busy", reason === "push" ? "Guardando…" : "Sincronizando…");
   try{
     for(let intento = 0; intento < 3; intento++){
@@ -290,7 +290,7 @@ async function sync(reason){
     SY.last = now(); localStorage.setItem(KSYNC, JSON.stringify(SY)); lastErr = "";
     setSync("ok", "Sincronizado");
   }catch(e){
-    lastErr = e && e.message && !/fetch|network|load/i.test(e.message) ? e.message : "Sin conexión · guardado en el móvil";
+    lastErr = e && e.message && !/fetch|network|load/i.test(e.message) ? e.message : "Sin conexión · guardado aquí";
     setSync(/conexión/.test(lastErr) ? "off" : "err", lastErr);
   }finally{
     syncing = false;
@@ -302,7 +302,7 @@ function setSync(state, txt){
   document.getElementById("syncDot").className = "dot " + state;
   document.getElementById("syncTxt").textContent = txt;
 }
-function initSyncPill(){ if(SY) setSync("ok", "Sincronizado"); else setSync("", "Solo en este móvil"); }
+function initSyncPill(){ if(SY) setSync("ok", "Sincronizado"); else setSync("", "Solo en este dispositivo"); }
 
 /* ============ Vistas ============ */
 let tab = "mes", cur = null, confirmDel = false;
@@ -426,18 +426,18 @@ function vAjustes(){
       <button class="del" data-act="delp" data-id="${p.id}" aria-label="Quitar ${esc(p.n)}">×</button></div>`;
   });
   h += `<button class="add" data-act="addp"><span style="font-size:22px;line-height:1">＋</span> Añadir a la plantilla</button></div>`;
-  h += `<div class="label">Compartir entre los dos móviles</div><div class="card">`;
+  h += `<div class="label">Guardar y usar en varios dispositivos</div><div class="card">`;
   if(SY){
     h += `<div class="field"><span class="n">Estado</span><span class="small val ${lastErr ? "" : "muted"}" style="${lastErr ? "color:var(--bad);white-space:normal" : ""}">${lastErr ? esc(lastErr) : "Conectado"}</span></div>
       <div class="field"><span class="n" style="flex:none">Repositorio</span><span class="small muted val">${esc(SY.r)}</span></div>
       <div class="field"><span class="n" style="flex:none">Última vez</span><span class="small muted val">${SY.last ? new Date(SY.last).toLocaleString("es-ES", {dateStyle:"short", timeStyle:"short"}) : "—"}</span></div>
       <button class="btn" data-act="syncnow" style="margin-top:12px">Sincronizar ahora</button>
-      <button class="btn sec" data-act="copycode">Copiar código para el otro móvil</button>
-      <p class="help">Envía ese código a tu pareja por un chat privado. En su móvil: Ajustes › «Pegar código». No lo publiques: da acceso a vuestras cuentas.</p>
-      <button class="btn danger" data-act="unlink" style="margin-top:12px">Desconectar este móvil</button>`;
+      <button class="btn sec" data-act="copycode">Copiar código para otro dispositivo</button>
+      <p class="help">Para usar la app en el PC: abre la app allí, ve a Ajustes, pega este código y pulsa «Conectar con código». No lo publiques: da acceso a vuestras cuentas.</p>
+      <button class="btn danger" data-act="unlink" style="margin-top:12px">Desconectar este dispositivo</button>`;
   } else {
-    h += `<p class="help" style="margin-top:0">Ahora los datos solo están en este móvil. Conéctalo a vuestro repositorio privado de GitHub para que los dos veáis lo mismo y no se pierda nada.</p>
-      <div style="margin-top:12px"><input class="inp" id="cfgCode" placeholder="Pegar código del otro móvil" autocomplete="off" autocapitalize="off" spellcheck="false">
+    h += `<p class="help" style="margin-top:0">Los datos ya se guardan en este dispositivo. Conéctalo a tu repositorio privado de GitHub para tener copia segura y ver lo mismo en el iPhone y en el PC.</p>
+      <div style="margin-top:12px"><input class="inp" id="cfgCode" placeholder="Pegar código de otro dispositivo" autocomplete="off" autocapitalize="off" spellcheck="false">
       <button class="btn" data-act="usecode" style="margin-top:8px">Conectar con código</button></div>
       <p class="help" style="text-align:center;margin:14px 0">— o, la primera vez —</p>
       <input class="inp" id="cfgO" placeholder="Usuario de GitHub" autocomplete="off" autocapitalize="off" spellcheck="false" value="edriderofficial-afk">
@@ -483,8 +483,8 @@ function act(a, d, el){
       try{ const c = JSON.parse(atob(document.getElementById("cfgCode").value.trim().replace(/^CM1:/, ""))); if(!c.o || !c.r || !c.t) throw 0; connect(c); }
       catch(e){ toast("Ese código no es válido"); }
       break; }
-    case "copycode": { const code = "CM1:" + btoa(JSON.stringify({o:SY.o, r:SY.r, t:SY.t})); (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject()).then(() => toast("Código copiado. Pégalo en el otro móvil"), () => toast("No se ha podido copiar")); break; }
-    case "unlink": SY = null; try{ localStorage.removeItem(KSYNC); }catch(e){} lastErr = ""; initSyncPill(); render(); toast("Desconectado. Los datos siguen en este móvil"); break;
+    case "copycode": { const code = "CM1:" + btoa(JSON.stringify({o:SY.o, r:SY.r, t:SY.t})); (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject()).then(() => toast("Código copiado. Pégalo en el otro dispositivo"), () => toast("No se ha podido copiar")); break; }
+    case "unlink": SY = null; try{ localStorage.removeItem(KSYNC); }catch(e){} lastErr = ""; initSyncPill(); render(); toast("Desconectado. Los datos siguen aquí"); break;
     case "export": {
       const blob = new Blob([JSON.stringify(S, null, 2)], {type:"application/json"});
       const url = URL.createObjectURL(blob), aEl = document.createElement("a");

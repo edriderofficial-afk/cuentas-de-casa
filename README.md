@@ -26,8 +26,8 @@ Los datos se guardan en el móvil y, si lo conectáis, en un archivo `cuentas.js
    - Generate token y cópiala (empieza por `github_pat_`).
 3. En tu iPhone, abre la app en Safari › Compartir › **Añadir a pantalla de inicio**. Ábrela desde el icono.
 4. Ajustes › pega la clave › **Conectar**.
-5. Ajustes › **Copiar código para el otro móvil** y envíaselo a tu pareja por un chat privado. Ella instala la app igual (paso 3) y en Ajustes pega el código › **Conectar con código**.
+5. Para usarla también en el PC: en el iPhone, Ajustes › **Copiar código para otro dispositivo**. Abre la app en el navegador del PC, Ajustes › pega el código › **Conectar con código**.
 
-Cuando la clave caduque, crea otra igual, pulsa «Desconectar este móvil» y vuelve a conectar (y pásale el código nuevo a tu pareja).
+Cuando la clave caduque, crea otra igual, pulsa «Desconectar este móvil» y vuelve a conectar (en cada dispositivo).
 
 La versión anterior de la app («Cuentas de casa») sigue en el historial de este repositorio.
